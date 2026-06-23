@@ -103,20 +103,6 @@ public:
     {
         return board[r][c];
     }
-    //     Q: Can we optimize to O(1)?
-
-    // 👉 YES (very important LLD upgrade)
-
-    // Idea:
-
-    // Maintain counters:
-
-    // rowCount[row][symbol]
-    // colCount[col][symbol]
-    // diagCount[symbol]
-    // antiDiagCount[symbol]
-
-    // Then:
 
     bool checkDraw()
     {
