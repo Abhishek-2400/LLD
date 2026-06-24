@@ -5,7 +5,7 @@ class Shape
 {
 public:
     virtual void draw() = 0;
-    virtual Shape *clone() = 0;
+    virtual unique_ptr<Shape> clone() = 0;
     virtual void show() = 0;
     virtual ~Shape() = default;
 };
@@ -39,16 +39,21 @@ public:
         cout << *nikname << " " << nikname << endl;
     }
 
-    Shape *clone()
+    unique_ptr<Shape> clone()
     {
-        return new Circle(*this);
+        return make_unique<Circle>(*this);
+    }
+
+    ~Circle()
+    {
+        delete name;
     }
 };
 
 int main()
 {
-    Shape *shape = new Circle("ram", "abhishek");
-    Shape *s1 = shape->clone();
+    unique_ptr<Shape> shape = make_unique<Circle>("ram", "abhishek");
+    unique_ptr<Shape> s1 = shape->clone();
     shape->show();
     s1->show();
     return 0;
