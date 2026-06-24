@@ -46,7 +46,7 @@ public:
 
     ~Circle()
     {
-        delete name;
+        delete nikname;
     }
 };
 
