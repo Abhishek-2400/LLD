@@ -38,7 +38,7 @@ public:
 class VehicleFactory
 {
 public:
-    virtual Vehicle *createVehicle(string) = 0;
+    virtual unique_ptr<Vehicle> createVehicle(string) = 0;
     virtual ~VehicleFactory() = default;
 };
 
@@ -46,12 +46,12 @@ class HondaFactory : public VehicleFactory
 {
 
 public:
-    Vehicle *createVehicle(string type)
+    unique_ptr<Vehicle> createVehicle(string type)
     {
         if (type == "hondaCity")
-            return new HondaCity();
+            return make_unique<HondaCity>();
         else if (type == "hondaCreta")
-            return new HondaCreta();
+            return make_unique<HondaCreta>();
         else
             return nullptr;
     }
@@ -61,11 +61,11 @@ class ToyotaFactory : public VehicleFactory
 {
 
 public:
-    Vehicle *createVehicle(string type)
+    unique_ptr<Vehicle> createVehicle(string type)
     {
 
         if (type == "toyotaCrema")
-            return new ToyotaCrema();
+            return make_unique<ToyotaCrema>();
         else
             return nullptr;
     }
@@ -73,8 +73,8 @@ public:
 
 int main()
 {
-    VehicleFactory *vehicleFactory = new HondaFactory();
-    Vehicle *v = vehicleFactory->createVehicle("hondaCreta");
+    unique_ptr<VehicleFactory> vehicleFactory = make_unique<HondaFactory>();
+    unique_ptr<Vehicle> v = vehicleFactory->createVehicle("hondaCreta");
     v->start();
 
     return 0;

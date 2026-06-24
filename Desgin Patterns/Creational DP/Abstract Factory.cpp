@@ -79,53 +79,53 @@ public:
 class FoodFactory
 {
 public:
-    virtual MainDish *prepareMainCourse() = 0;
-    virtual SideDish *prepareSideCourse() = 0;
-    virtual Drinks *prepareDrinks() = 0;
+    virtual unique_ptr<MainDish> prepareMainCourse() = 0;
+    virtual unique_ptr<SideDish> prepareSideCourse() = 0;
+    virtual unique_ptr<Drinks> prepareDrinks() = 0;
     virtual ~FoodFactory() = default;
 };
 
 class VegFoodFactory : public FoodFactory
 {
 public:
-    MainDish *prepareMainCourse() override
+    unique_ptr<MainDish> prepareMainCourse() override
     {
-        return new VegBurger();
+        return make_unique<VegBurger>();
     }
 
-    SideDish *prepareSideCourse() override
+    unique_ptr<SideDish> prepareSideCourse() override
     {
-        return new VegPuff();
+        return make_unique<VegPuff>();
     }
 
-    Drinks *prepareDrinks() override
+    unique_ptr<Drinks> prepareDrinks() override
     {
-        return new OatsMilk();
+        return make_unique<OatsMilk>();
     }
 };
 
 class NonVegFoodFactory : public FoodFactory
 {
 public:
-    MainDish *prepareMainCourse() override
+    unique_ptr<MainDish> prepareMainCourse() override
     {
-        return new ChickenBurger();
+        return make_unique<ChickenBurger>();
     }
 
-    SideDish *prepareSideCourse() override
+    unique_ptr<SideDish> prepareSideCourse() override
     {
-        return new FrenchFries();
+        return make_unique<FrenchFries>();
     }
 
-    Drinks *prepareDrinks() override
+    unique_ptr<Drinks> prepareDrinks() override
     {
-        return new ColdDrink();
+        return make_unique<ColdDrink>();
     }
 };
 
 int main()
 {
-    FoodFactory *foodFactory = new VegFoodFactory();
+    unique_ptr<FoodFactory> foodFactory = make_unique<VegFoodFactory>();
     foodFactory->prepareMainCourse()->prepare();
     foodFactory->prepareSideCourse()->prepare();
     foodFactory->prepareDrinks()->prepare();

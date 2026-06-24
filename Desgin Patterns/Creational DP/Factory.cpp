@@ -5,6 +5,7 @@ class PaymentMethod
 {
 public:
     virtual void pay() = 0;
+    virtual ~PaymentMethod() = default;
 };
 
 class UPI : public PaymentMethod
@@ -25,7 +26,7 @@ class PaymentFactory
     //  Normal functions
     //  Lambdas
 
-    using creator = function<PaymentMethod *()>;
+    using creator = function<unique_ptr<PaymentMethod>()>;
     // inline static variables (introduced in C++17) allow a static data member to be defined directly inside the class.
 
     // Earlier : static int x;
@@ -41,7 +42,7 @@ public:
     {
         m[type] = c;
     }
-    static PaymentMethod *getPaymentMethod(string type)
+    static unique_ptr<PaymentMethod> getPaymentMethod(string type)
     {
         if (m.find(type) == m.end())
         {
@@ -56,11 +57,17 @@ int main()
 {
     // register all the payment methods
     PaymentFactory::registry("upi", []()
-                             { return new UPI(); });
+                             { return make_unique<UPI>(); });
 
-    PaymentMethod *paymentMethod = PaymentFactory::getPaymentMethod("upi");
+    // unique_ptr models ownership correctly and automatically releases memory.
+    // make_unique creates the object and wraps it in a unique_ptr.
+
+    unique_ptr<PaymentMethod> paymentMethod = PaymentFactory::getPaymentMethod("upi");
+
     if (!paymentMethod)
         return -1;
+
     paymentMethod->pay();
+
     return 0;
 }
