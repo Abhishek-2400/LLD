@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Entire application should read the same config.
+// Multiple copies can cause inconsistency.
+
 class ConfigurationManager
 {
     ConfigurationManager()
