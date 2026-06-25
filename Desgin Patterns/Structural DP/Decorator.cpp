@@ -67,94 +67,18 @@
 //     delete coffee;
 // }
 
-output of destrucotr call :
+// output of destrucotr call:
 
-    ~MilkDecorator ~CoffeeDecorator        ← delete coffee triggers sugar chain... ~SugarDecorator ~CoffeeDecorator      ← delete coffee triggers cream chain... ~CreamDecorator ~CoffeeDecorator    ← delete coffee triggers simple chain... ~SimpleCoffee ~Coffee           ← simple's base ~Coffee             ← cream's base ~Coffee               ← sugar's base ~Coffee                 ← milk's base
+// ~MilkDecorator
+// ~CoffeeDecorator        ← delete coffee triggers sugar chain...
+//   ~SugarDecorator
+//   ~CoffeeDecorator      ← delete coffee triggers cream chain...
+//     ~CreamDecorator
+//     ~CoffeeDecorator    ← delete coffee triggers simple chain...
+//       ~SimpleCoffee
+//       ~Coffee           ← simple's base
+//     ~Coffee             ← cream's base
+//   ~Coffee               ← sugar's base
+// ~Coffee                 ← milk's base
 
-    // #include <bits/stdc++.h>
-    // using namespace std;
-
-    // class Coffee
-    // {
-    // public:
-    //     virtual float cost() = 0;
-    //     virtual ~Coffee() = default;
-    // };
-
-    // class SimpleCoffee : public Coffee
-    // {
-    // public:
-    //     float cost() override
-    //     {
-    //         return 100.0;
-    //     }
-    // };
-
-    // class CoffeeDecorator : public Coffee
-    // {
-    // protected:
-    //     unique_ptr<Coffee> coffee;
-
-    // public:
-    //     CoffeeDecorator(unique_ptr<Coffee> c)
-    //         : coffee(move(c))
-    //     {
-    //     }
-
-    //     virtual ~CoffeeDecorator() = default;
-    // };
-
-    // class MilkDecorator : public CoffeeDecorator
-    // {
-    // public:
-    //     MilkDecorator(unique_ptr<Coffee> c)
-    //         : CoffeeDecorator(move(c))
-    //     {
-    //     }
-
-    //     float cost() override
-    //     {
-    //         return 20.0 + coffee->cost();
-    //     }
-    // };
-
-    // class SugarDecorator : public CoffeeDecorator
-    // {
-    // public:
-    //     SugarDecorator(unique_ptr<Coffee> c)
-    //         : CoffeeDecorator(move(c))
-    //     {
-    //     }
-
-    //     float cost() override
-    //     {
-    //         return 30.0 + coffee->cost();
-    //     }
-    // };
-
-    // class CreamDecorator : public CoffeeDecorator
-    // {
-    // public:
-    //     CreamDecorator(unique_ptr<Coffee> c)
-    //         : CoffeeDecorator(move(c))
-    //     {
-    //     }
-
-    //     float cost() override
-    //     {
-    //         return 40.0 + coffee->cost();
-    //     }
-    // };
-
-    // int main()
-    // {
-    //     unique_ptr<Coffee> coffee = make_unique<SimpleCoffee>();
-
-    //     coffee = make_unique<CreamDecorator>(move(coffee));
-    //     coffee = make_unique<SugarDecorator>(move(coffee));
-    //     coffee = make_unique<MilkDecorator>(move(coffee));
-
-    //     cout << "Cost = " << coffee->cost() << endl;
-
-    //     return 0;
-    // }
+//-----------------------------------------------------------------------------------------------------------------------------------------
