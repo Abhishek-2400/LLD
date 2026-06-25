@@ -281,3 +281,13 @@ int main()
 
 // raw pointer/reference
 //     => I can access it
+
+// But one caveat — the raw observer teamPtr is only safe as long as the owner (d1) is alive. If d1 gets destroyed before you use teamPtr, it's a dangling pointer. With shared_ptr that can't happen.
+// So:
+
+// unique_ptr + raw observer → faster, more explicit, fine when lifetimes are clear (which in a tree structure they usually are — parent always outlives child)
+// shared_ptr → safer, slight overhead, better when lifetimes are unclear
+
+// production prefers raw ptr Because shared_ptr has overhead:
+
+// Atomic reference counting — every copy/destroy does an atomic increment/decrement. In a large org tree with thousands of nodes this adds up.
