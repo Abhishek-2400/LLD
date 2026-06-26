@@ -138,3 +138,8 @@ int main()
 
     return 0;
 }
+
+// At any instant, there is only one state object in memory.
+//  Assigning a new object to a unique_ptr automatically destroys the object it was previously owning.
+
+// That's why unique_ptr is ideal for the State pattern—only one state is active at a time, and switching states automatically cleans up the previous one.
