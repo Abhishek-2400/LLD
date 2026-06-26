@@ -3,6 +3,7 @@ using namespace std;
 
 class Member;
 
+// start from interface declaration first to avoid unnecesaary frwd declarations
 class Mediator
 {
 public:
