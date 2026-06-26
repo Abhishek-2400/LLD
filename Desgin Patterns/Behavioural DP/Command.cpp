@@ -92,6 +92,7 @@ public:
 
 class CheckoutProcessor
 {
+    // checkout processor also owns thse cmds as it might excute them in bckg even after main is gone
     vector<shared_ptr<Command>> commands;
     stack<shared_ptr<Command>> executed;
 
