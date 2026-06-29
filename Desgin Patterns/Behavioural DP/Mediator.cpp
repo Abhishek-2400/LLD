@@ -39,12 +39,7 @@ class AuctionHouse : public Mediator
 {
     vector<Member *> v;
 
-public:
-    void Register(Member *m)
-    {
-        v.push_back(m);
-    }
-
+protected:
     void SendMessage(Member *m, string data)
     {
         for (auto &it : v)
@@ -53,18 +48,19 @@ public:
                 it->receiveMessage(data);
         }
     }
+
+public:
+    void Register(Member *m)
+    {
+        v.push_back(m);
+    }
 };
 
 class ExtendedAuction : public AuctionHouse
 {
     int timer;
 
-public:
-    ExtendedAuction(int time)
-    {
-        timer = time;
-    }
-
+protected:
     // this is overrirding only Since the function was originally virtual in Mediator, it remains virtual all the way down
     // and virtual in parent + same name+parsms in child is overriding
     void SendMessage(Member *m, string data)
@@ -76,6 +72,12 @@ public:
         }
 
         AuctionHouse::SendMessage(m, data);
+    }
+
+public:
+    ExtendedAuction(int time)
+    {
+        timer = time;
     }
 };
 
